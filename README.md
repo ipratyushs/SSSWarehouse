@@ -29,3 +29,4 @@ $ react-native link
 $ react-native run-android
 ```
 
+Application made by Pratyush Swain and Bhupesh Verma
