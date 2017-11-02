@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, TextInput, Alert, StyleSheet,View, Input, Image} from "react-native";
+import { Platform, TextInput, Alert, StyleSheet,View, Input, Image, ActivityIndicator} from "react-native";
 import styles from "./styles";
 import axios from 'axios';
 import firebase from 'firebase';
@@ -76,6 +76,7 @@ export default class previousOrders extends Component {
                   rawData:result
                 })
               console.log(result);
+             
               
 
   }
@@ -309,6 +310,19 @@ clearField(){
   })
 }
 
+renderActivityLoader(result){
+  if(this.state.rawData.length == 0){
+
+      return (
+      
+          <ActivityIndicator/>
+      
+      )}
+
+    
+    
+}
+
   render() {
     return (
       <Container>
@@ -401,6 +415,7 @@ clearField(){
             <Text style={{color: '#FAFAFA'}} >SYNC</Text>
           </Button> 
            </Left> 
+           
           <Right>
           <Button full light
             onPress={() =>
@@ -410,10 +425,12 @@ clearField(){
             <Text style={styles.titleText}>CLEAR FIELD</Text>
           </Button>
          </Right> 
+         
 		      </View>
+          {this.renderActivityLoader()}
           <TextInput style={styless.titleText}  placeholder="Search by Order ID" onChangeText={(text) =>this.filterSearch(text)} value={this.state.text}></TextInput>
 
- 		       
+ 		      
 
  		<View style={{flex: 1, paddingTop: 20}}>
         {this.state.dummyData.map((rowData,index) =>

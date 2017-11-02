@@ -78,7 +78,7 @@ export default class todayOrders extends Component {
 
     //SSS API CALL saving in local storage 
  async componentDidMount() {
-     axios.post('http://streetstylestore.com/index.php?controller=orderdispatch?webservice_key=L14YN7LAVX2CH3RA5M1DDWNFRLLVMA32')
+     axios.post('') // add api url and key (controller=orderdispatch)
     .then((response) => {
 
 

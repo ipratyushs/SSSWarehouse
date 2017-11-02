@@ -32,12 +32,12 @@ export default class App extends Component{
 
   componentWillMount() {
     firebase.initializeApp({
-   apiKey: "AIzaSyDVkycztr8PAos0WroNC0q8AZpQqbwALO4",
+   apiKey: "**********************", // add the api key from the firebase console
     authDomain: "ssswarehouse-f2c8f.firebaseapp.com",
     databaseURL: "https://ssswarehouse-f2c8f.firebaseio.com",
     projectId: "ssswarehouse-f2c8f",
     storageBucket: "",
-    messagingSenderId: "926746514412"
+    messagingSenderId: "*******" // add the messaging SenderID from the firebase console
     });
 
   var database = firebase.database();
