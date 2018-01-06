@@ -6,8 +6,10 @@ import firebase from 'firebase';
 import { Container, Header, Title,  Content, Button, Icon, Text, Right, Body, Left, Picker, Form, ListItem, Item as FormItem, Separator, CardItem, Card } from "native-base";
 const Item = Picker.Item;
 var temp3=[]
+var temp1=[]
 var temp=''
 var result=[]
+
 var resultloc = []
 export default class previousOrders extends Component {
   constructor(props) {
@@ -125,7 +127,7 @@ export default class previousOrders extends Component {
 
                 
               firebaseVal.on('value', function(datasnapshot){
-                temp1 = datasnapshot.toJSON()
+                temp1 = datasnapshot.val()
                
               })
               console.log(temp1);
@@ -133,25 +135,29 @@ export default class previousOrders extends Component {
               return {prop:prop, value:value}
               })
                 this.setState({
-                  locdata:resultloc
+                  locdata:temp1
                 })
-              console.log(resultloc);
+              console.log(temp1);
 
 
              
   }
 
   onrenderlocation(itemid, itemsize){
+    
+
 
   return this.state.locdata.map((lockd,index) =>{
 
    
-      if(lockd.value.ProductID == itemid && lockd.value.ProductSize == itemsize)
+      if(lockd.ProductID == itemid && lockd.ProductSize == itemsize)
                  {  return(
                <Right>
-                  <Text style={styless.titleText}>Location:{lockd.value.Location}</Text>
+                  <Text style={styless.titleText}>Location:{lockd.Location}</Text>
                </Right>)
       }
+     
+
       
     })
 }
@@ -443,8 +449,15 @@ renderActivityLoader(result){
                   <Icon active name="paper" />
                   <Text style={styless.titleText}>Order Id:{rowData.value.id_order}</Text>
                 </Button>
+
               </Left>
              
+              <Right>
+                <Button iconLeft transparent>
+                  <Icon active name="clipboard" />
+                  <Text style={styless.totalitem}>Total Items:{rowData.value.products.length}</Text>
+                </Button>
+              </Right>
               </CardItem>
               <CardItem>
                <Left>
@@ -593,11 +606,19 @@ renderActivityLoader(result){
 }
 
 
+
 const styless = StyleSheet.create({
   titleText: {
 
-    fontSize: 15,
-    fontWeight: 'normal'
+    fontSize: 13,
+    fontWeight: 'normal',
+
+  },
+
+  totalitem:{
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#002f6c'
   },
   contain: {
     width: 350,

@@ -78,7 +78,7 @@ export default class todayOrders extends Component {
 
     //SSS API CALL saving in local storage 
  async componentDidMount() {
-     axios.post('') // add api url and key (controller=orderdispatch)
+     axios.post('http://streetstylestore.com/index.php?controller=orderdispatch?webservice_key=L14YN7LAVX2CH3RA5M1DDWNFRLLVMA32') // add api url and key (controller=orderdispatch)
     .then((response) => {
 
 
@@ -191,7 +191,7 @@ orderval(){
 
                 
               firebaseVal.on('value', function(datasnapshot){
-                temp = datasnapshot.toJSON();
+                temp = datasnapshot.val();
                 temp2 = datasnapshot.numChildren();
 
                
@@ -201,7 +201,7 @@ orderval(){
               return {prop:prop, value:value}
               })
                 this.setState({
-                  locdata:result
+                  locdata:temp
                 })
               console.log(result);
 
@@ -210,6 +210,7 @@ orderval(){
                   
                   locdata2:temp2
                 });
+
   }
 
   //filtering order id and rendering the only order id that is to be shown to the user
@@ -417,10 +418,10 @@ onrender(itemid, itemsize){
   return this.state.locdata.map((lockd,index) =>{
 
    
-      if(lockd.value.ProductID == itemid && lockd.value.ProductSize == itemsize)
+      if(lockd.ProductID === itemid && lockd.ProductSize === itemsize)
                  {  return(
                <Right>
-                  <Text style={styless.titleText}>Location:{lockd.value.Location}</Text>
+                  <Text style={styless.titleText}>Location:{lockd.Location}</Text>
                </Right>)
       }
       
@@ -513,6 +514,12 @@ onIncompleteOrder(oid){
                 </Button>
               </Left>
               
+                <Right>
+                <Button iconLeft transparent>
+                  <Icon active name="clipboard" />
+                  <Text style={styless.totalitem}>Total Items:{rowData.products.length}</Text>
+                </Button>
+              </Right>
              
               </CardItem>
               <CardItem>
@@ -553,6 +560,7 @@ onIncompleteOrder(oid){
               
 
             </CardItem>
+            
            
               {rowData.products.map((item)=>
 
@@ -684,6 +692,11 @@ const styless = StyleSheet.create({
 
     fontSize: 15,
     fontWeight: 'normal',
+  },
+   totalitem:{
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#002f6c'
   },
   contain: {
     width: 350,
