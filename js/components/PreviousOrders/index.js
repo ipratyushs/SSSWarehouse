@@ -42,7 +42,7 @@ export default class previousOrders extends Component {
 
   onValueChange1(value:string ) {
     this.setState({
-      
+
       selected2 : value
     });
   }
@@ -59,16 +59,16 @@ export default class previousOrders extends Component {
               // No user is signed in.
               console.log(error);
             }
-             
+
               var firebaseVal = firebase.database().ref('Orders/').child(date);
 
-                
+
               firebaseVal.on('value', function(datasnapshot){
-              
+
                temp3 = datasnapshot.val();
-               
+
               })
-             
+
                 console.log(temp3);
               result = _.map(temp3, function(value,prop){
               return {prop:prop, value:value}
@@ -78,8 +78,8 @@ export default class previousOrders extends Component {
                   rawData:result
                 })
               console.log(result);
-             
-              
+
+
 
   }
 
@@ -97,7 +97,7 @@ export default class previousOrders extends Component {
         return response.filter(function(item){
             const itemData = item.value.shipping_number
             const textData = text
-           
+
             // const courierData = item.carrier_name.toUpperCase()
             // const courierTextData = text.toUpperCase()
             if( itemData == textData){
@@ -122,13 +122,13 @@ export default class previousOrders extends Component {
               // No user is signed in.
               console.log(error);
             }
-             
+
               var firebaseVal = firebase.database().ref('product_Location/');
 
-                
+
               firebaseVal.on('value', function(datasnapshot){
                 temp1 = datasnapshot.val()
-               
+
               })
               console.log(temp1);
               resultloc = _.map(temp1, function(value,prop){
@@ -140,25 +140,30 @@ export default class previousOrders extends Component {
               console.log(temp1);
 
 
-             
+
   }
 
   onrenderlocation(itemid, itemsize){
-    
+
 
 
   return this.state.locdata.map((lockd,index) =>{
 
-   
+
       if(lockd.ProductID == itemid && lockd.ProductSize == itemsize)
                  {  return(
                <Right>
                   <Text style={styless.titleText}>Location:{lockd.Location}</Text>
                </Right>)
+      }else{
+        return(
+           <Right>
+              <Text style={styless.titleText}>N/A</Text>
+           </Right>)
       }
-     
 
-      
+
+
     })
 }
 
@@ -174,7 +179,7 @@ onRenderPName(pname){
                   </Left>)
 }
  onValChange(){
- 
+
   var ftext = null
 
   this.filterSearch(ftext);
@@ -205,14 +210,14 @@ Alert.alert(
   console.log(error);
 }
   var firebaseVal = firebase.database().ref('incomplete_Order/');
-    
+
   firebaseVal.on('value', function(datasnapshot){
     temp = datasnapshot.val();
   })
   console.log(temp);
 
 
-  
+
 
  }
 
@@ -230,7 +235,7 @@ writeIncompleteOrderData(id,pid,pname,psize){
   var newPostKey2= firebae.database().ref().child('Total_Incomplete_Order').push()
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
- 
+
   updates['incomplete_Order/' + '/IC/' + newPostKey] = postData;
 
   firebase.database().ref().update(updates);
@@ -252,7 +257,7 @@ writeIncompleteOrderData(id,pid,pname,psize){
   console.log(error);
 }
   var firebaseVal = firebase.database().ref('users/'+uid).child('OC');
-    
+
   firebaseVal.on('value', function(datasnapshot){
     temp = datasnapshot.val();
   })
@@ -263,7 +268,7 @@ writeIncompleteOrderData(id,pid,pname,psize){
  'Order Completed',
  'Thank You! Lets complete an another order!',
  [
-   
+
    {text: 'OK', onPress: () => this.onValChange() },
    console.log(this.state.text)
  ],
@@ -281,7 +286,7 @@ writeUserData(uid, id) {
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
- 
+
   updates['users/' + uid + '/OC/' + newPostKey] = postData;
 
   firebase.database().ref().update(updates);
@@ -302,7 +307,7 @@ writeordersCompleted(uid,uemail,id){
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
- 
+
   updates['OrdersCompleted/' + uid  + newPostKey] = postData;
 
   firebase.database().ref().update(updates);
@@ -320,13 +325,13 @@ renderActivityLoader(result){
   if(this.state.rawData.length == 0){
 
       return (
-      
+
           <ActivityIndicator/>
-      
+
       )}
 
-    
-    
+
+
 }
 
   render() {
@@ -345,9 +350,9 @@ renderActivityLoader(result){
         </Header>
         <Content>
           <ListItem icon>
-            
+
             <Body style={{width: 100}}>
-               
+
               <Picker
               iosHeader="Select one"
               mode="dropdown"
@@ -407,42 +412,42 @@ renderActivityLoader(result){
               <Item label="30th" value="30th" />
               <Item label="31th" value="31th" />
 
-            </Picker>	
-            
-          </Right>
-        
+            </Picker>
 
-          
-          </ListItem> 
-    
+          </Right>
+
+
+
+          </ListItem>
+
           <View style={{flex:1,flexDirection:'row',justifyContent:'space-between'}}>
           <Left>
           <Button full dark onPress={() => this.oncheck(this.state.selected1,this.state.selected2)} >
             <Text style={{color: '#FAFAFA'}} >SYNC</Text>
-          </Button> 
-           </Left> 
-           
+          </Button>
+           </Left>
+
           <Right>
           <Button full light
             onPress={() =>
              this.clearField()}
-          
+
           >
             <Text style={styles.titleText}>CLEAR FIELD</Text>
           </Button>
-         </Right> 
-         
+         </Right>
+
 		      </View>
           {this.renderActivityLoader()}
           <TextInput style={styless.titleText}  placeholder="Search by Order ID" onChangeText={(text) =>this.filterSearch(text)} value={this.state.text}></TextInput>
 
- 		      
+
 
  		<View style={{flex: 1, paddingTop: 20}}>
         {this.state.dummyData.map((rowData,index) =>
          <Content padder key={rowData.value.id_order}>
           <Card style={styles.mb}>
-             
+
             <CardItem style={{ paddingVertical: 0 }}>
               <Left>
                 <Button iconLeft transparent>
@@ -451,7 +456,7 @@ renderActivityLoader(result){
                 </Button>
 
               </Left>
-             
+
               <Right>
                 <Button iconLeft transparent>
                   <Icon active name="clipboard" />
@@ -482,7 +487,7 @@ renderActivityLoader(result){
                   <Text style={styless.titleText}>OrderDate:{rowData.value.date_add}</Text>
                 </Button>
               </Left>
-              
+
 
             </CardItem>
             <CardItem>
@@ -492,10 +497,10 @@ renderActivityLoader(result){
                   <Text style={styless.titleText}>Carrier Name:{rowData.value.carrier_name}</Text>
                 </Button>
               </Left>
-              
+
 
             </CardItem>
-           
+
               {rowData.value.products.map((item)=>
 
               	<Card>
@@ -533,8 +538,8 @@ renderActivityLoader(result){
 		         	 </Button>
 		              </Left>
 		              {this.onrenderlocation(item.product_id, item.product_size)}
-		       
-		            </CardItem>     
+
+		            </CardItem>
 		            <CardItem>
 		              <Left>
 		                <Button iconLeft transparent>
@@ -544,21 +549,21 @@ renderActivityLoader(result){
 		              </Left>
 		              <Body>
 </Body>
-                   
+
               <Right>
                 <TextInput style={{width:100 , fontSize:15, fontWeight:'normal'}} placeholder='Click & Scan'   onChangeText={(tex) => this.setState({tex})} />
            </Right>
-              
+
 		     	 </CardItem>
 		     	 <CardItem>
-              
-              {(this.state.tex).slice(0,2) == item.product_size  ? 
+
+              {(this.state.tex).slice(0,2) == item.product_size  ?
                                 <Text>"Right Item"</Text>
-                         : 
+                         :
                         <Text>"Wrong Item"</Text>
                     }
-              
-             
+
+
 
               </CardItem>
 
@@ -568,21 +573,21 @@ renderActivityLoader(result){
 
                  <Button full dark  onPress={() => this.onProcessIncomplete(rowData.value.id_order, item.product_name, item.product_size, item.product_id)}>
             <Text style={{color: '#FAFAFA'}} >Item Unavailable</Text>
-          </Button> 
+          </Button>
 
               </Right>
               </CardItem>
               	</Card>
 
 
-              )}		
+              )}
 
             <CardItem>
-              
+
               <Body>
                 <Button full dark  onPress={() => this.onComplete(rowData.value.id_order)}>
             <Text style={{color: '#FAFAFA'}} >Complete Order</Text>
-          </Button> 
+          </Button>
               </Body>
 
 
@@ -592,7 +597,7 @@ renderActivityLoader(result){
           </Card>
         </Content>
         )}
-                  
+
       </View>
  		</Content>
 
