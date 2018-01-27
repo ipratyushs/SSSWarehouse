@@ -80,33 +80,25 @@ export default class todayOrders extends Component {
  async componentDidMount() {
      axios.post('http://streetstylestore.com/index.php?controller=orderdispatch?webservice_key=L14YN7LAVX2CH3RA5M1DDWNFRLLVMA32') // add api url and key (controller=orderdispatch)
     .then((response) => {
-
-
     console.log(response)
-
               storage.save({
             key: 'myKey',   // Note: Do not use underscore("_") in key!
             data: response,
-
             // if not specified, the defaultExpires will be applied instead.
             // if set to null, then it will never expire.
             expires: 1000 * 3600 * 24
           });
 
-
           // load
          storage.load({
             key: 'myKey',
-
             // autoSync(default true) means if data not found or expired,
             // then invoke the corresponding sync method
             autoSync: true,
-
             // syncInBackground(default true) means if data expired,
             // return the outdated data first while invoke the sync method.
             // It can be set to false to always return data provided by sync method when expired.(Of course it's slower)
             syncInBackground: true,
-
             // you can pass extra params to sync method
             // see sync example below for example
             syncParams: {
@@ -125,8 +117,6 @@ export default class todayOrders extends Component {
                     rawData:ret.data
 
                   });
-
-
                 }).catch(err => {
                   // any exception including data not found
                   // goes to catch()
@@ -141,10 +131,6 @@ export default class todayOrders extends Component {
                             break;
                   }
                 })
-
-
-
-
         this.setState({
 
           isLoading: false,
@@ -152,9 +138,6 @@ export default class todayOrders extends Component {
            value:'',
 
 
-        },
-         function() {
-          // do something with new state
         });
       })
       .catch((error) => {
@@ -164,6 +147,8 @@ export default class todayOrders extends Component {
 
                 })
       });
+
+
 }
 //When no data is received from the API, error is shown in text
  onNoData() {
@@ -179,7 +164,7 @@ orderval(){
       //FIREBASE API
 
             var user = firebase.auth().currentUser;
-              if (user) {
+            if (user) {
               // User is signed in.
               var uid = user.uid;
             } else {
@@ -196,20 +181,20 @@ orderval(){
 
 
               })
-              console.log(temp);
-              result = _.map(temp, function(value,prop){
-              return {prop:prop, value:value}
-              })
-                this.setState({
-                  locdata:temp
-                })
-              console.log(result);
-
-
-              this.setState({
-
-                  locdata2:temp2
-                });
+              // console.log(temp);
+              // result = _.map(temp, function(value,prop){
+              // return {prop:prop, value:value}
+              // })
+              //   this.setState({
+              //     locdata:temp
+              //   })
+              // console.log(result);
+              //
+              //
+              // this.setState({
+              //
+              //     locdata2:temp2
+              //   });
 
   }
 
@@ -414,22 +399,29 @@ writeordersCompleted(uid,uemail,id){
 // rendering the location of the product
 
 onrender(itemid, itemsize){
+console.log(temp);
 
-  return this.state.locdata.map((lockd,index) =>{
-
-
-      if(lockd.ProductID === itemid && lockd.ProductSize === itemsize)
-                 {  return(
-               <Right>
-                  <Text style={styless.titleText}>Location:{lockd.Location}</Text>
-               </Right>)
-      }else{
-        return <Right>
-            <Text style={styless.titleText}>N/A</Text>
-        </Right>
-      }
-
-    })
+var example = this.state.locdata.filter((item,index)=>{
+  if(item.ProductID == itemid && item.ProductSize == itemsize ){
+    return item;
+  }else{
+    return 0;
+  }
+})
+console.log("example",example);
+if(example == 0){
+return <Right>
+  <ActivityIndicator/>
+</Right>
+}else{
+return example.map((item,index)=>{
+  return(
+    <Right>
+       <Text style={{color: '#000'}}>{item.Location}</Text>
+    </Right>
+  )
+})
+}
 }
 onRenderPName(pname){
   var productname = pname.length
@@ -595,18 +587,12 @@ onIncompleteOrder(oid){
 
 
             <CardItem>
-
-
               <Left>
-              <Button dark
-            onPress={() =>
-             this.orderval()}
-               >
-            <Text style={{color: '#FAFAFA'}} >Get Location</Text>
-          </Button>
+              <Button  dark  onPress={() => this.orderval()}>
+                <Text style={{color: '#FAFAFA'}} >Item Unavailable</Text>
+              </Button>
               </Left>
               {this.onrender(item.product_id, item.product_size)}
-
             </CardItem>
             <CardItem>
               <Left>

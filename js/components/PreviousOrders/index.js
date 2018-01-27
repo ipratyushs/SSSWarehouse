@@ -95,7 +95,7 @@ export default class previousOrders extends Component {
 
     dataFilter(text, response){
         return response.filter(function(item){
-            const itemData = item.value.shipping_number
+            const itemData = item.value.id_order
             const textData = text
 
             // const courierData = item.carrier_name.toUpperCase()
@@ -144,27 +144,31 @@ export default class previousOrders extends Component {
   }
 
   onrenderlocation(itemid, itemsize){
-
-
-
-  return this.state.locdata.map((lockd,index) =>{
-
-
-      if(lockd.ProductID == itemid && lockd.ProductSize == itemsize)
-                 {  return(
-               <Right>
-                  <Text style={styless.titleText}>Location:{lockd.Location}</Text>
-               </Right>)
+    console.log(this.state.locdata);
+    console.log("itemid",itemid);
+    console.log("itemsize",itemsize);
+    var example = this.state.locdata.filter((item,index)=>{
+      if(item.ProductID == itemid && item.ProductSize == itemsize ){
+        return item;
       }else{
-        return(
-           <Right>
-              <Text style={styless.titleText}>N/A</Text>
-           </Right>)
+        return 0;
       }
-
-
-
     })
+    console.log("example",example);
+  if(example == 0){
+    return <Right>
+      <ActivityIndicator/>
+    </Right>
+  }else{
+    return example.map((item,index)=>{
+      return(
+        <Right>
+           <Text style={{color: '#000'}}>{item.Location}</Text>
+        </Right>
+      )
+    })
+  }
+
 }
 
 onRenderPName(pname){

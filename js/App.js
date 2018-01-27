@@ -16,7 +16,7 @@ const AppNavigator = StackNavigator(
     {
         Drawer: { screen: Drawer }
 
-      
+
     },
     {
         initialRouteName: "Drawer",
@@ -32,12 +32,12 @@ export default class App extends Component{
 
   componentWillMount() {
     firebase.initializeApp({
-   apiKey: "**********************", // add the api key from the firebase console
-    authDomain: "ssswarehouse-f2c8f.firebaseapp.com",
-    databaseURL: "https://ssswarehouse-f2c8f.firebaseio.com",
-    projectId: "ssswarehouse-f2c8f",
-    storageBucket: "",
-    messagingSenderId: "*******" // add the messaging SenderID from the firebase console
+      apiKey: "AIzaSyDVkycztr8PAos0WroNC0q8AZpQqbwALO4",
+       authDomain: "ssswarehouse-f2c8f.firebaseapp.com",
+       databaseURL: "https://ssswarehouse-f2c8f.firebaseio.com",
+       projectId: "ssswarehouse-f2c8f",
+       storageBucket: "ssswarehouse-f2c8f.appspot.com",
+       messagingSenderId: "926746514412"
     });
 
   var database = firebase.database();
@@ -72,4 +72,3 @@ export default class App extends Component{
         )
     }
 }
-
