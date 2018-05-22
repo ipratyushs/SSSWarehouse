@@ -32,8 +32,8 @@ export default class App extends Component{
 
   componentWillMount() {
     firebase.initializeApp({
-      apiKey: "AIzaSyDVkycztr8PAos0WroNC0q8AZpQqbwALO4",
-       authDomain: "ssswarehouse-f2c8f.firebaseapp.com",
+      apiKey: "",
+       authDomain: "",
        databaseURL: "https://ssswarehouse-f2c8f.firebaseio.com",
        projectId: "ssswarehouse-f2c8f",
        storageBucket: "ssswarehouse-f2c8f.appspot.com",
