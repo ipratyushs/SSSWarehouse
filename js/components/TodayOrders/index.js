@@ -16,7 +16,7 @@ var temp2=''
 var result=[]
 const cardImage = require("../../../img/drawer-cover.png");
 var form = new FormData();
-form.append('webservice_key', 'L14YN7LAVX2CH3RA5M1DDWNFRLLVMA32');
+form.append('', '');
 const datas = [
   {
     route: "BasicSegment",
@@ -78,7 +78,7 @@ export default class todayOrders extends Component {
 
     //SSS API CALL saving in local storage
  async componentDidMount() {
-     axios.post('http://streetstylestore.com/index.php?controller=orderdispatch?webservice_key=L14YN7LAVX2CH3RA5M1DDWNFRLLVMA32') // add api url and key (controller=orderdispatch)
+     axios.post('http://streetstylestore.com/index.php?controller=orderdispatch?webservice_key=') // add api url and key (controller=orderdispatch)
     .then((response) => {
     console.log(response)
               storage.save({
